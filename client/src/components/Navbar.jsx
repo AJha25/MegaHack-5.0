@@ -11,7 +11,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import DarkMode from "@/DarkMode";
+// import DarkMode from "@/DarkMode";
 import {
   Sheet,
   SheetClose,
@@ -98,7 +98,7 @@ const Navbar = () => {
               <Button onClick={() => navigate("/login")}>Signup</Button>
             </div>
           )}
-          <DarkMode />
+          {/* <DarkMode /> */}
         </div>
       </div>
       {/* Mobile device  */}
@@ -129,7 +129,7 @@ const MobileNavbar = ({user}) => {
       <SheetContent className="flex flex-col">
         <SheetHeader className="flex flex-row items-center justify-between mt-2">
           <SheetTitle> <Link to="/">E-Learning</Link></SheetTitle>
-          <DarkMode />
+          {/* <DarkMode /> */}
         </SheetHeader>
         <Separator className="mr-2" />
         <nav className="flex flex-col space-y-4">

@@ -1,4 +1,3 @@
-// McgPr7oX7v1mMcbN
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,6 +10,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   useLoginUserMutation,
   useRegisterUserMutation,
@@ -25,8 +31,13 @@ const Login = () => {
     name: "",
     email: "",
     password: "",
+    role: "student", // default role
   });
-  const [loginInput, setLoginInput] = useState({ email: "", password: "" });
+  const [loginInput, setLoginInput] = useState({
+    email: "",
+    password: "",
+    role: "student", // default role
+  });
 
   const [
     registerUser,
@@ -64,18 +75,18 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if(registerIsSuccess && registerData){
-      toast.success(registerData.message || "Signup successful.")
+    if (registerIsSuccess && registerData) {
+      toast.success(registerData.message || "Signup successful.");
     }
-    if(registerError){
+    if (registerError) {
       toast.error(registerError.data.message || "Signup Failed");
     }
-    if(loginIsSuccess && loginData){
+    if (loginIsSuccess && loginData) {
       toast.success(loginData.message || "Login successful.");
       navigate("/");
     }
-    if(loginError){ 
-      toast.error(loginError.data.message || "login Failed");
+    if (loginError) {
+      toast.error(loginError.data.message || "Login Failed");
     }
   }, [
     loginIsLoading,
@@ -110,30 +121,47 @@ const Login = () => {
                   value={signupInput.name}
                   onChange={(e) => changeInputHandler(e, "signup")}
                   placeholder="Eg. patel"
-                  required="true"
+                  required
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="username">Email</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   type="email"
                   name="email"
                   value={signupInput.email}
                   onChange={(e) => changeInputHandler(e, "signup")}
-                  placeholder="Eg. patel@gmail.com"
-                  required="true"
+                  placeholder="Eg. admin@gmail.com"
+                  required
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="username">Password</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   type="password"
                   name="password"
                   value={signupInput.password}
                   onChange={(e) => changeInputHandler(e, "signup")}
                   placeholder="Eg. xyz"
-                  required="true"
+                  required
                 />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="role">Role</Label>
+                <Select
+                  defaultValue="student"
+                  onValueChange={(value) =>
+                    setSignupInput({ ...signupInput, role: value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="student">Student</SelectItem>
+                    <SelectItem value="instructor">Instructor</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </CardContent>
             <CardFooter>
@@ -158,31 +186,48 @@ const Login = () => {
             <CardHeader>
               <CardTitle>Login</CardTitle>
               <CardDescription>
-                Login your password here. After signup, you'll be logged in.
+                Login with your credentials. After signup, you'll be logged in.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="space-y-1">
-                <Label htmlFor="current">Email</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   type="email"
                   name="email"
                   value={loginInput.email}
                   onChange={(e) => changeInputHandler(e, "login")}
-                  placeholder="Eg. patel@gmail.com"
-                  required="true"
+                  placeholder="Eg. admin@gmail.com"
+                  required
                 />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="new">Password</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   type="password"
                   name="password"
                   value={loginInput.password}
                   onChange={(e) => changeInputHandler(e, "login")}
                   placeholder="Eg. xyz"
-                  required="true"
+                  required
                 />
+              </div>
+              <div className="space-y-1">
+                <Label htmlFor="role">Role</Label>
+                <Select
+                  defaultValue="student"
+                  onValueChange={(value) =>
+                    setLoginInput({ ...loginInput, role: value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="student">Student</SelectItem>
+                    <SelectItem value="instructor">Instructor</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </CardContent>
             <CardFooter>
@@ -206,4 +251,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;
